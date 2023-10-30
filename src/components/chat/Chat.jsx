@@ -13,11 +13,10 @@ export default function Chat() {
     }
 
     useEffect(() => {
-        setTimeout(handleInserts, 2000)
+        handleInserts()
     }, [])
 
     const handleInserts = async () => {
-        console.log("UPDATE!")
         let { data } = await supabase
             .from('messages')
             .select('*')
@@ -36,6 +35,7 @@ export default function Chat() {
             .insert([
                 { user, message }
             ]).select()
+        handleInserts()
         setMessage("")
     }
     
