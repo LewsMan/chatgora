@@ -1,26 +1,35 @@
 import { styled } from "styled-components"
 
-export default function Message({message, ...props}) {
-
+export default function Message({message, user, created_at, ...props}) {
+    const date = new Date(created_at)
     
     return (<Styled.Wrapper>
         <Styled.User>
-            {message.user}
+            <span>{user}</span>
+            <Styled.Hour>{date.getHours()}:{date.getMinutes()}:{date.getSeconds()}</Styled.Hour>
         </Styled.User>
-        <Styled.Message>{message.message}</Styled.Message>
+        <Styled.Message>{message}</Styled.Message>
     </Styled.Wrapper>)
 }
 
 const Styled = {
     Wrapper: styled.div`
-        padding: 8px;
-        margin: 4px 0;
+        margin: 8px 0;
         border-radius: 8px;
-        border: 1px solid #696969;
         width: 100%;
     `,
     User: styled.div`
-        font-weight: bold;
+        font-weight: normal;
+        font-size: 120%;
+        display: flex;
+        gap: 8px;
+        align-items: flex-end;
+        justify-content: flex-start;
+    `,
+    Hour: styled.span`
+        font-weight: lighter;
+        font-size: 60%;
+        opacity: .3;
     `,
     Message: styled.div`
         font-weight: lighter;

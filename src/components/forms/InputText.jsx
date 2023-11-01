@@ -1,8 +1,6 @@
 import { styled } from "styled-components"
 
 export default function InputText({...props}) {
-
-    
     return (<Styled.Wrapper>
         <Styled.Input type="text" {...props}  />
     </Styled.Wrapper>)

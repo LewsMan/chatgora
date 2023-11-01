@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { styled } from "styled-components"
 import { AppContext } from "../../App"
 import { InputText, Button, Message } from "../../components"
+import { crypt, decrypt } from "../../hooks"
 
 export default function Chat() {
     const [chats, setChats] = useState([])
@@ -21,7 +22,8 @@ export default function Chat() {
             .from('messages')
             .select('*')
             .eq('chat', 'general')
-        setChats(data)
+        const oldChatsIds = chats.map(x => x.id)
+        setChats([...chats, ...data.filter(x => oldChatsIds.indexOf(x.id) < 0)])
     }
 
     supabase
@@ -30,19 +32,23 @@ export default function Chat() {
         .subscribe()
 
     const sendMessage = async () => {
-        await supabase
+        const { data } = await supabase
             .from('messages')
             .insert([
-                { user, message }
+                { user, message: crypt('general', message) }
             ]).select()
-        handleInserts()
+        setChats([...chats, ...data])
+        await supabase
+            .from('messages')
+            .delete()
+            .eq('id', data[0].id)
         setMessage("")
     }
     
     return (<Styled.Wrapper>
         <Styled.Chat>
             <Styled.Legend>te has unido a #general</Styled.Legend>
-            {chats?.map(m => (<Message key={m.id} message={m} />))}
+            {chats?.map(m => <Message key={m.id} message={decrypt('general', m.message)} user={m.user} created_at={m.created_at} />)}
         </Styled.Chat>
         <Styled.Form onSubmit={submitForm}>
             <Styled.InputText>
@@ -68,10 +74,7 @@ const Styled = {
     Chat: styled.div`
         width: 100%;
         height: 100vh;
-        display: flex;
-        align-items: flex-start;
-        justify-content: flex-end;
-        flex-flow: column;
+        overflow: scroll;
     `,
     Legend: styled.div`
         font-weight: lighter;
