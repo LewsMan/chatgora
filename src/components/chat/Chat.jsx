@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { styled } from "styled-components"
 import { AppContext } from "../../App"
-import { Message, SendInput } from "../../components"
+import { Message, SendInput, Header } from "../../components"
 import { decrypt } from "../../hooks"
 
 export default function Chat() {
@@ -27,6 +27,7 @@ export default function Chat() {
 
     
     return (<Styled.Wrapper>
+        <Header />
         <Styled.Chat>
             <Styled.Legend>te has unido a #{currentChat}</Styled.Legend>
             {chats?.map(m => <Message key={m.id} message={decrypt(currentChat, m.message || '')} user={m.user} created_at={m.created_at} />)}
@@ -48,9 +49,13 @@ const Styled = {
         max-height: -webkit-fill-available;
     `,
     Chat: styled.div`
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-flow: column;
         width: 100%;
+        height: -webkit-fill-available;
         max-height: -webkit-fill-available;
-        overflow-y: scroll;
     `,
     Legend: styled.div`
         font-weight: lighter;

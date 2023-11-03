@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { AppContext } from "../../App"
 import { styled } from "styled-components"
 import { InputText, Button, Card } from "../../components"
-import LogoApp from "./logo"
+import LogoApp from "./Logo"
 
 export default function Login() {
     const [userInput, setUserInput] = useState('')
