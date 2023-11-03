@@ -10,8 +10,8 @@ const Styled = {
     Button: styled.button`
         padding: 16px;
         border-radius: 8px;
-        border: 1px solid #2A769A;
-        background-color: #2A769A;
+        border: 1px solid #4285f4;
+        background-color: #4285f4;
         color: white;
         text-transform: uppercase;
         width: 100%;

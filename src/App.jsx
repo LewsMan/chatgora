@@ -1,4 +1,4 @@
-import { useEffect, useState, createContext } from "react";
+import { useState, createContext } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { Login, Chat } from "./components"
 import "./reset.css"
@@ -12,9 +12,10 @@ export const AppContext = createContext();
 
 function App() {
   const [user, setUser] = useState()
+  const [currentChat, setCurrentChat] = useState("general")
 
   return (
-    <AppContext.Provider value={{user, setUser, supabase}}>
+    <AppContext.Provider value={{user, setUser, currentChat, setCurrentChat, supabase}}>
       {user
         ? <Chat />
         : <Login />}
