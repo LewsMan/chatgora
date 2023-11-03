@@ -1,7 +1,7 @@
 import { styled } from "styled-components"
 import { useContext} from "react"
 import { AppContext } from "../../App"
-import LogoApp from "../login/Logo"
+import { LogoApp } from "../logo"
 
 export default function Header() {
     const { currentChat } = useContext(AppContext)
