@@ -38,6 +38,8 @@ export default function SendInput({chats, setChats}) {
 
 const Styled = {
     Form: styled.form`
+        position: sticky;
+        bottom: 0;
         width: 100%;
         display: flex;
         gap: 4px;
