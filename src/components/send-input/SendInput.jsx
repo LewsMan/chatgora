@@ -43,6 +43,7 @@ const Styled = {
         width: 100%;
         display: flex;
         gap: 4px;
+        background-color: #232323;
     `,
     InputText: styled.div`
         flex: 1;
