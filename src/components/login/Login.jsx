@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import { AppContext } from "../../App"
 import { styled } from "styled-components"
-import { InputText, Button, Card } from "../../components"
+import { InputText, Button, Card, Bubble } from "../../components"
 import { LogoApp } from "../logo"
 
 export default function Login() {
@@ -20,7 +20,7 @@ export default function Login() {
         setTimeout(() => {
             if (bubbles.length < 15) {
                 setBubbles([...bubbles, {
-                    id: new Date().toDateString(), 
+                    id: Date.now(), 
                     color: mColor[Math.floor(Math.random() * mColor.length)], 
                     left: `${Math.floor(Math.random() * 80)}%`, 
                     duration: `${Math.floor(Math.random() * 10 + 7)}s`
@@ -33,7 +33,7 @@ export default function Login() {
 
     return (<Styled.Wrapper>
         <Styled.AnimationBack>
-            {bubbles.map((e) => <Styled.Bubble key={e.id} className={e.classnName} style={{
+            {bubbles.map((e) => <Bubble key={e.id} mColor={e.color} className={e.classnName} style={{
                 backgroundColor: e.color,
                 left: e.left,
                 animationDuration: e.duration
@@ -44,7 +44,7 @@ export default function Login() {
                 <Styled.Title>
                     <LogoApp style={{width: '80px', margin: 'auto'}} />
                 </Styled.Title>
-                <InputText placeholder={"Username"} value={userInput} onChange={(e) => setUserInput(e.currentTarget.value)} />
+                <InputText placeholder={"Username"} length={20} value={userInput} onChange={(e) => setUserInput(e.currentTarget.value)} />
                 <Button>Entrar</Button>
             </Styled.Form>
         </Card>
@@ -68,25 +68,6 @@ const Styled = {
         right: 0;
         z-index: -1;
         overflow: hidden;
-    `,
-    Bubble: styled.div`
-        position: absolute;
-        bottom: 0;
-        width: 100px;
-        height: 30px;
-        border-radius: 8px;
-        animation: bubbleGo forwards;
-        animation-iteration-count: 1;
-        @keyframes bubbleGo{
-            from {
-                opacity: 1;
-                bottom: 0;
-            }
-            to {
-                opacity: 0;
-                bottom: 200vh;
-            }
-        }
     `,
     Title: styled.div`
         letter-spacing: 1px;

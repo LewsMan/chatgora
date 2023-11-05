@@ -3,7 +3,7 @@ import { styled } from "styled-components"
 export default function Button({...props}) {
 
     
-    return (<Styled.Button type="text" {...props}  />)
+    return (<Styled.Button {...props}  />)
 }
 
 const Styled = {

@@ -1,7 +1,7 @@
 import { useContext, useState } from "react"
 import { styled } from "styled-components"
 import { AppContext } from "../../App"
-import { InputText, Button } from "../../components"
+import { InputText, Button } from ".."
 import { crypt } from "../../hooks"
 
 export default function SendInput({chats, setChats}) {
@@ -20,10 +20,6 @@ export default function SendInput({chats, setChats}) {
                     { user, message: crypt('general', message) }
                 ]).select()
             setChats([...chats, ...data])
-            await supabase
-                .from('messages')
-                .delete()
-                .eq('id', data[0].id)
             setMessage('')
             }
     }

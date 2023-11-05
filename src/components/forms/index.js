@@ -1,3 +1,5 @@
 export {default as InputText} from './InputText'
 export {default as Button} from './Button'
 export {default as Card} from './Card'
+export {default as SendInput} from './SendInput'
+export {default as Bubble} from './Bubble'

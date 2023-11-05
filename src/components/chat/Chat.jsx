@@ -12,12 +12,14 @@ export default function Chat() {
         handleInserts()
     }, [])
 
-    const handleInserts = async () => {
-        let { data } = await supabase
-            .from('messages')
-            .select('*')
-            .eq('chat', currentChat)
-        setChats([...chats, ...data])
+    const handleInserts = async (payload) => {
+        if(payload) {
+            setChats([...chats, payload.new])
+            await supabase
+                    .from('messages')
+                    .delete()
+                    .eq('id', payload.new.id)
+        }
     }
 
     supabase
@@ -54,8 +56,6 @@ const Styled = {
         justify-content: flex-end;
         flex-flow: column;
         width: 100%;
-        height: -webkit-fill-available;
-        max-height: -webkit-fill-available;
     `,
     Legend: styled.div`
         font-weight: lighter;
